@@ -1,28 +1,32 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template lang="html">
+  <div>
+    <star-wars-header></star-wars-header>
+    <film-list :filmList="filmList"></film-list>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import StarWarsHeader from "./components/Header.vue"
+import FilmList from "./components/FilmList.vue"
 
 export default {
-  name: 'App',
+  name: 'app',
+  data(){
+    return{
+      filmList: []
+    }
+  },
+  mounted() {
+    fetch("https://swapi.dev/api/films/")
+    .then(res => res.json())
+    .then(filmList => this.filmList = filmList.results);
+  },
   components: {
-    HelloWorld
+    "star-wars-header": StarWarsHeader,
+    "film-list": FilmList
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="css" scoped>
 </style>
