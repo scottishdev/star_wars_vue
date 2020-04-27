@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-      <li>{{filmItem.title}}</li>
+      <li v-on:click="handleOnClickSelect">{{filmItem.title}}</li>
   </div>
 </template>
 
@@ -9,7 +9,12 @@ import {eventBus} from "../main.js"
 
 export default {
   name: "film-item",
-  props: ["filmItem"]
+  props: ["filmItem"],
+  methods: {
+    handleOnClickSelect: function() {
+      eventBus.$emit("film-select", this.filmItem)
+    }
+  }
 }
 </script>
 
